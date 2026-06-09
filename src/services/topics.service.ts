@@ -1,28 +1,36 @@
 import { callClaude } from './claude.service';
 import type { TopicIdea } from '@/types/content.types';
 
-const SYSTEM_PROMPT = `You are a content strategist for @lifeandlegacybooks — a social media brand about family memory preservation, photo books, and legacy storytelling. You know exactly what stops a scroll and makes someone feel something.`;
+const SYSTEM_PROMPT = `You are a content strategist for @lifeandlegacybooks — a social media brand about family memory preservation, photo books, and legacy storytelling. You know exactly what stops a scroll and makes someone feel something in their chest.`;
 
-const USER_PROMPT = `Generate 9 scroll-stopping content topic ideas for the Life & Legacy brand.
+const USER_PROMPT = `Generate 10 scroll-stopping content topic ideas for the Life & Legacy brand.
 
-Each topic should:
-- Be emotionally specific, not generic ("The voicemail I almost deleted" not "Family memories matter")
-- Tap into a real, recognizable family moment or fear
-- Be immediately usable as a TikTok or Instagram post
-- Cover a range of emotions
+Spread across these theme categories:
+- Family relationships (grandparents, parents, siblings, children)
+- Time & seasons (childhood, growing old, the passage of time)
+- Objects & places that hold memory (old photos, family homes, handwriting, recipes)
+- Fears & urgency (stories never told, people we're losing, regret)
+- Nature as metaphor (seasons, light, trees, water reflecting memory)
+- Legacy & continuation (what we pass down, how we want to be remembered)
+
+Each topic must:
+- Be emotionally specific, not generic ("The voicemail I almost deleted" — not "Family memories matter")
+- Tap into a real, universal family moment, fear, or longing
+- Work immediately as a TikTok or Instagram hook
+- Feel like it could stop someone mid-scroll
 
 Output ONLY this raw JSON — no markdown, no explanation:
 {
   "topics": [
     {
       "title": "Compelling topic title, 6–12 words, hooks immediately",
-      "description": "One sentence: the emotional angle or core story to explore",
+      "description": "One sentence: the specific emotional angle or core story to explore",
       "emotion": "one of exactly: nostalgia | urgency | gratitude | love | bittersweet"
     }
   ]
 }
 
-Distribute emotions across all 9 topics. Make each title feel like it could go viral.`;
+Generate exactly 10 topics. Distribute all 5 emotions. Make every title feel like it could go viral.`;
 
 export async function generateTopicIdeas(): Promise<TopicIdea[]> {
   const raw = await callClaude(USER_PROMPT, SYSTEM_PROMPT);

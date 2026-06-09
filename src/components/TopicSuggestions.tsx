@@ -6,11 +6,11 @@ import { Button } from '@/components/ui/button';
 import type { TopicIdea, TopicEmotion } from '@/types/content.types';
 
 const EMOTION_STYLES: Record<TopicEmotion, { badge: string; card: string; dot: string }> = {
-  nostalgia:   { badge: 'bg-amber-100 text-amber-700',   card: 'border-amber-100 hover:border-amber-300',   dot: 'bg-amber-400' },
-  urgency:     { badge: 'bg-rose-100 text-rose-700',     card: 'border-rose-100 hover:border-rose-300',     dot: 'bg-rose-400' },
+  nostalgia:   { badge: 'bg-amber-100 text-amber-700',     card: 'border-amber-100 hover:border-amber-300',     dot: 'bg-amber-400' },
+  urgency:     { badge: 'bg-rose-100 text-rose-700',       card: 'border-rose-100 hover:border-rose-300',       dot: 'bg-rose-400' },
   gratitude:   { badge: 'bg-emerald-100 text-emerald-700', card: 'border-emerald-100 hover:border-emerald-300', dot: 'bg-emerald-400' },
-  love:        { badge: 'bg-pink-100 text-pink-700',     card: 'border-pink-100 hover:border-pink-300',     dot: 'bg-pink-400' },
-  bittersweet: { badge: 'bg-violet-100 text-violet-700', card: 'border-violet-100 hover:border-violet-300', dot: 'bg-violet-400' },
+  love:        { badge: 'bg-pink-100 text-pink-700',       card: 'border-pink-100 hover:border-pink-300',       dot: 'bg-pink-400' },
+  bittersweet: { badge: 'bg-violet-100 text-violet-700',   card: 'border-violet-100 hover:border-violet-300',   dot: 'bg-violet-400' },
 };
 
 interface Props {
@@ -43,20 +43,19 @@ export function TopicSuggestions({ onSelect }: Props) {
     setSelected(topic.title);
     onSelect(topic.title);
     setTimeout(() => {
-      document.getElementById('generator-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 100);
   }
 
   return (
     <div className="space-y-4">
-      {/* Button row */}
       <div className="flex items-center gap-3">
         <Button
           onClick={fetchTopics}
           disabled={loading}
           variant={topics.length ? 'outline' : 'default'}
-          className={topics.length ? '' : 'shadow-md'}
           size={topics.length ? 'sm' : 'default'}
+          className={topics.length ? '' : 'shadow-md'}
         >
           {loading ? (
             <><Loader2 className="h-4 w-4 animate-spin" /> Generating ideas…</>
@@ -67,31 +66,26 @@ export function TopicSuggestions({ onSelect }: Props) {
           )}
         </Button>
         {topics.length > 0 && !loading && (
-          <p className="text-xs text-stone-400">Click any idea to use it in the generator</p>
+          <p className="text-xs text-stone-400">Click any idea to use it above</p>
         )}
       </div>
 
       {error && (
-        <p className="text-sm text-red-500 bg-red-50 border border-red-100 rounded-lg px-3 py-2">
-          {error}
-        </p>
+        <p className="text-sm text-red-500 bg-red-50 border border-red-100 rounded-lg px-3 py-2">{error}</p>
       )}
 
       {/* Loading skeletons */}
       {loading && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {Array.from({ length: 9 }).map((_, i) => (
-            <div
-              key={i}
-              className="h-[88px] rounded-xl border border-stone-100 bg-stone-50 animate-pulse"
-            />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {Array.from({ length: 10 }).map((_, i) => (
+            <div key={i} className="h-[88px] rounded-xl border border-stone-100 bg-stone-50 animate-pulse" />
           ))}
         </div>
       )}
 
       {/* Topic cards */}
       {!loading && topics.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {topics.map((topic, i) => {
             const style = EMOTION_STYLES[topic.emotion] ?? EMOTION_STYLES.nostalgia;
             const isSelected = selected === topic.title;
@@ -103,7 +97,7 @@ export function TopicSuggestions({ onSelect }: Props) {
                 className={`text-left p-4 rounded-xl border-2 bg-white transition-all group ${
                   isSelected
                     ? 'border-amber-400 shadow-md ring-2 ring-amber-100'
-                    : `${style.card} hover:shadow-sm hover:bg-stone-50/50`
+                    : `${style.card} hover:shadow-sm`
                 }`}
               >
                 <div className="flex items-start gap-2.5">

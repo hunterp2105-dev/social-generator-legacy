@@ -5,39 +5,47 @@ export interface GenerateRequest {
   type: PackageType;
 }
 
-// ── Shared ───────────────────────────────────────────────────────────────────
+// ── Media ─────────────────────────────────────────────────────────────────────
 
-export type FootageSource = 'Pexels' | 'Pixabay';
+export type VideoSource = 'Pexels' | 'Pixabay' | 'Mixkit';
+export type PhotoSource = 'Pexels' | 'Pixabay' | 'Unsplash';
 
-export interface FootageSuggestion {
-  source: FootageSource;
+export interface VideoSuggestion {
+  source: VideoSource;
   description: string;
   searchQuery: string;
 }
 
-// ── Voice Over Package ───────────────────────────────────────────────────────
+export interface PhotoSuggestion {
+  source: PhotoSource;
+  description: string;
+  searchQuery: string;
+}
+
+// ── Packages ──────────────────────────────────────────────────────────────────
 
 export interface VoiceOverPackage {
   type: 'voiceover';
   script: string;
-  footage: FootageSuggestion[];
+  quotes: string[];
+  videos: VideoSuggestion[];
+  photos: PhotoSuggestion[];
   caption: string;
   hashtags: string[];
 }
 
-// ── Quotes Package ───────────────────────────────────────────────────────────
-
 export interface QuotesPackage {
   type: 'quotes';
   quotes: string[];
-  footage: FootageSuggestion[];
+  videos: VideoSuggestion[];
+  photos: PhotoSuggestion[];
   caption: string;
   hashtags: string[];
 }
 
 export type ContentPackage = VoiceOverPackage | QuotesPackage;
 
-// ── Topic Ideas ──────────────────────────────────────────────────────────────
+// ── Topic Ideas ───────────────────────────────────────────────────────────────
 
 export type TopicEmotion = 'nostalgia' | 'urgency' | 'gratitude' | 'love' | 'bittersweet';
 
@@ -47,7 +55,7 @@ export interface TopicIdea {
   emotion: TopicEmotion;
 }
 
-// ── Saved ────────────────────────────────────────────────────────────────────
+// ── Saved ─────────────────────────────────────────────────────────────────────
 
 export interface SavedPost {
   id: string;

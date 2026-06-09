@@ -89,8 +89,8 @@ export function GeneratorForm({ onGenerate, presetTopic }: Props) {
       {loading && (
         <p className="text-xs text-stone-400 px-1 animate-pulse">
           {loading === 'voiceover'
-            ? 'Crafting your voiceover script, footage links, caption, and hashtags…'
-            : 'Writing your quotes, footage links, caption, and hashtags…'}
+            ? 'Writing your script, quotes, video & photo links, caption, and hashtags…'
+            : 'Writing your quotes, video & photo links, caption, and hashtags…'}
         </p>
       )}
     </div>
